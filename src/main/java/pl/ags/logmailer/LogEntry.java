@@ -57,6 +57,11 @@ public class LogEntry
     return get(Columns.APP_VERSION_CODE);
   }
 
+  public String getVersionName()
+  {
+    return get(Columns.APP_VERSION_NAME);
+  }
+
   public String getReportId()
   {
     return get(Columns.REPORT_ID);
@@ -109,6 +114,7 @@ public class LogEntry
     STACKTRACE("stacktrace"),
     ANDROID_VERSION("androidversion"),
     APP_VERSION_CODE("appversioncode"),
+    APP_VERSION_NAME("appversionname"),
     USER_CRASH_DATE("usercrashdate"),
     REPORT_ID("reportid"),
     BRAND("brand");

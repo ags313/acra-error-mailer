@@ -9,7 +9,7 @@ public class MailingConfig
   private final String password;
   private final String server;
   private final String from;
-  private final String to;
+  private final String[] to;
   private final String subject;
 
   public MailingConfig(String username, String password, String server, String from, String to, String subject)
@@ -18,7 +18,7 @@ public class MailingConfig
     this.password = password;
     this.server = server;
     this.from = from;
-    this.to = to;
+    this.to = to.split(",");
     this.subject = subject;
   }
 
@@ -37,7 +37,7 @@ public class MailingConfig
     return password;
   }
 
-  public String getRecipient()
+  public String[] getRecipients()
   {
     return to;
   }

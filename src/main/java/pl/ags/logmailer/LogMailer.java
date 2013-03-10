@@ -24,16 +24,21 @@ public class LogMailer
   Renderer renderer;
   private final MailingConfig configuration;
   private InternetAddress fromAddress;
-  private InternetAddress toAddress;
+  private InternetAddress[] toAddresses;
 
   public LogMailer(MailingConfig configuration) throws IOException, AddressException
   {
     this.configuration = configuration;
     this.renderer = new Renderer();
 
-    String to = configuration.getRecipient();
+    String[] to = configuration.getRecipients();
     String from = configuration.getSender();
-    toAddress = new InternetAddress(to);
+    toAddresses = new InternetAddress[to.length];
+    for (int i = 0; i < to.length; i++)
+    {
+      String address = to[i];
+      toAddresses[i] = new InternetAddress(address.trim());
+    }
     fromAddress = new InternetAddress(from);
     renderer = new Renderer();
   }
@@ -56,7 +61,10 @@ public class LogMailer
       message.setContent(content);
 
       message.setFrom(fromAddress);
-      message.addRecipient(Message.RecipientType.TO, toAddress);
+      for (InternetAddress toAddress : toAddresses)
+      {
+        message.addRecipient(Message.RecipientType.TO, toAddress);
+      }
 
       message.setSubject("Application crash log");
 

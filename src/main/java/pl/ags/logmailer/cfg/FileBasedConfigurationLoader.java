@@ -29,9 +29,17 @@ public class FileBasedConfigurationLoader
 
   private File findTargetFile(final String fileName)
   {
-    String homeDirectory = System.getProperty("user.home");
-    final File file = new File(homeDirectory);
-    File[] files = file.listFiles(new FileFilter()
+    File file;
+
+    file = new File(fileName);
+    if(file.exists() && file.isFile())
+    {
+      return file;
+    }
+
+    String home = System.getProperty("user.home");
+    final File homeDirectory = new File(home);
+    File[] files = homeDirectory.listFiles(new FileFilter()
     {
       @Override
       public boolean accept(File pathname)
